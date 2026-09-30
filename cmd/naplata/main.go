@@ -8,6 +8,8 @@ import (
 
 	"github.com/mtiluk/naplata/internal/config"
 	"github.com/mtiluk/naplata/internal/database"
+	"github.com/mtiluk/naplata/internal/server"
+	"github.com/mtiluk/naplata/migrations"
 	"github.com/mtiluk/naplata/web"
 )
 
@@ -27,8 +29,17 @@ func main() {
 
 	slog.Info("database connected")
 
+	if err := migrations.Up(context.Background(), db); err != nil {
+		log.Fatal(err)
+	}
+
+	slog.Info("migrations applied")
+
+	h := server.NewHandler(db)
+
 	mux := http.NewServeMux()
 
+	mux.HandleFunc("GET /api/v1/health", h.HealthEndpoint)
 	mux.Handle("/api/", http.NotFoundHandler())
 	mux.Handle("/", web.Handler(web.Dist()))
 
