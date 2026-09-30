@@ -1,19 +1,25 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"fmt"
 
-	"github.com/mtiluk/naplata/web"
+	"github.com/mtiluk/naplata/internal/config"
 )
 
 func main() {
-	mux := http.NewServeMux()
+	config, err := config.LoadConfig()
+	if err != nil {
+		panic(err)
+	}
 
-	mux.Handle("/api/", http.NotFoundHandler())
-	mux.Handle("/", web.Handler(web.Dist()))
+	fmt.Println(config)
 
-	addr := ":8080"
-	log.Printf("listening on %s", addr)
-	log.Fatal(http.ListenAndServe(addr, mux))
+	// mux := http.NewServeMux()
+	//
+	// mux.Handle("/api/", http.NotFoundHandler())
+	// mux.Handle("/", web.Handler(web.Dist()))
+	//
+	// addr := ":8080"
+	// log.Printf("listening on %s", addr)
+	// log.Fatal(http.ListenAndServe(addr, mux))
 }
