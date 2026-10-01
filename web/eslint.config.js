@@ -24,4 +24,12 @@ export default defineConfig([
     files: ['src/routes/**/*.{ts,tsx}'],
     rules: { 'react-refresh/only-export-components': 'off' },
   },
+  {
+    // Copied from beui.dev; kept as published.
+    files: ['src/components/motion/**/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  },
 ])

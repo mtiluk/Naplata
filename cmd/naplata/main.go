@@ -35,7 +35,9 @@ func main() {
 
 	slog.Info("migrations applied")
 
-	h := server.NewHandler(db)
+	sessionManager := server.NewSessionManager(cfg, db)
+
+	h := server.NewHandler(database.NewStore(db), sessionManager)
 
 	mux := http.NewServeMux()
 
@@ -43,6 +45,14 @@ func main() {
 	mux.Handle("/api/", http.NotFoundHandler())
 	mux.Handle("/", web.Handler(web.Dist()))
 
+	// Authentication
+	mux.HandleFunc("POST /api/v1/auth/login", h.LoginEndpoint)
+	mux.HandleFunc("POST /api/v1/auth/register", h.RegisterEndpoint)
+	mux.HandleFunc("POST /api/v1/auth/logout", h.LogoutEndpoint)
+
+	// Current user
+	mux.Handle("GET /api/v1/me", h.RequireAuth(http.HandlerFunc(h.MeEndpoint)))
+
 	slog.Info("server listening", "addr", cfg.ListenAddr)
-	log.Fatal(http.ListenAndServe(cfg.ListenAddr, mux))
+	log.Fatal(http.ListenAndServe(cfg.ListenAddr, sessionManager.LoadAndSave(mux)))
 }
