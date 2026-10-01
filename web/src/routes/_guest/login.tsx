@@ -11,7 +11,7 @@ import { AuthLayout } from "@/components/auth/auth-layout";
 import { StatefulButton, type ButtonState } from "@/components/motion/button/stateful";
 import { Input } from "@/components/motion/input";
 
-export const Route = createFileRoute("/(auth)/login")({
+export const Route = createFileRoute("/_guest/login")({
   validateSearch: (search: Record<string, unknown>): { redirect?: string } => ({
     redirect: typeof search.redirect === "string" ? search.redirect : undefined,
   }),
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/(auth)/login")({
 const loginSchema = z
   .object({
     email: z.email("Enter a valid email").max(254),
-    password: z.string().min(8, "Password must be at least 8 characters"),
+    password: z.string().min(1, "Password is required"),
   });
 
 function Login() {
@@ -58,7 +58,7 @@ function Login() {
   const { fieldErrors: serverFieldErrors, formError } = parseServerError(
     login.error,
     {
-      409: { email: "An account with this email already exists" },
+      401: "Invalid email or password",
     },
   );
 

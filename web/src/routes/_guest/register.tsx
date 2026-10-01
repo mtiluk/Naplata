@@ -14,7 +14,7 @@ import {
 import { Checkbox } from "@/components/motion/checkbox";
 import { Input } from "@/components/motion/input";
 
-export const Route = createFileRoute("/(auth)/register")({
+export const Route = createFileRoute("/_guest/register")({
   component: Register,
 });
 
