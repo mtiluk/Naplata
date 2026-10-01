@@ -77,7 +77,7 @@ func (h *Handler) RegisterEndpoint(w http.ResponseWriter, r *http.Request) {
 
 type loginRequest struct {
 	Email    string `json:"email" validate:"required,email,max=254"`
-	Password string `json:"password" validate:"min=8"`
+	Password string `json:"password" validate:"required"`
 }
 
 var dummyHash, _ = hashPassword("dummy-password-for-timing")
