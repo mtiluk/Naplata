@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef, useState, type ReactNode } from "react";
-import { X } from "@phosphor-icons/react/X";
 
+import { HugeiconsIcon, Cancel01Icon } from "@/components/icons";
 import { ToastContext, type ToastInput, type ToastStatus } from "@/components/toast/use-toast";
 import { cn } from "@/lib/utils";
 
@@ -56,7 +56,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               onClick={() => dismissToast(toast.id)}
               className="text-muted-foreground hover:text-foreground"
             >
-              <X className="size-3.5" />
+              <HugeiconsIcon icon={Cancel01Icon} className="size-3.5" />
             </button>
           </li>
         ))}

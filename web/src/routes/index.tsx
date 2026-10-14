@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight } from "@phosphor-icons/react/ArrowRight";
-import { List } from "@phosphor-icons/react/List";
-import { X } from "@phosphor-icons/react/X";
 
 import { meQuery } from "@/api/auth/me";
+import { HugeiconsIcon, ArrowRight02Icon, Cancel01Icon, Menu01Icon } from "@/components/icons";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -49,7 +47,7 @@ function Index() {
               className="inline-flex h-8 items-center gap-2 border border-primary/45 bg-primary/12 pr-2.5 pl-3 text-[13px] font-medium transition-all hover:border-primary/70 hover:bg-primary/22 active:translate-y-px"
             >
               {user ? "Dashboard" : "Sign in"}
-              <ArrowRight className="size-4" />
+              <HugeiconsIcon icon={ArrowRight02Icon} className="size-4" />
             </Link>
 
             <button
@@ -60,7 +58,7 @@ function Index() {
               onClick={() => setMenuOpen((prev) => !prev)}
               className="-mr-2 flex size-10 items-center justify-center text-muted-foreground transition-colors hover:text-foreground sm:hidden"
             >
-              {menuOpen ? <X className="size-5" /> : <List className="size-5" />}
+              {menuOpen ? <HugeiconsIcon icon={Cancel01Icon} className="size-5" /> : <HugeiconsIcon icon={Menu01Icon} className="size-5" />}
             </button>
           </div>
         </div>
