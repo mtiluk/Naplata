@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Check } from "lucide-react";
+import { Check } from "@phosphor-icons/react/Check";
 
 type CheckboxProps = {
   label: ReactNode;
@@ -19,7 +19,7 @@ export function Checkbox({ label, checked, error, onCheckedChange }: CheckboxPro
           onChange={(e) => onCheckedChange(e.target.checked)}
           className="peer size-4 cursor-pointer appearance-none border border-input bg-input/30 transition-colors outline-none checked:border-primary checked:bg-primary focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-0"
         />
-        <Check className="pointer-events-none absolute hidden size-3 text-primary-foreground peer-checked:block" strokeWidth={3} />
+        <Check className="pointer-events-none absolute hidden size-3 text-primary-foreground peer-checked:block" weight="bold" />
       </span>
       <span>{label}</span>
     </label>

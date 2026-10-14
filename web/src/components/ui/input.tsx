@@ -1,5 +1,6 @@
 import { useId, useState, type InputHTMLAttributes } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye } from "@phosphor-icons/react/Eye";
+import { EyeSlash } from "@phosphor-icons/react/EyeSlash";
 
 import { cn } from "@/lib/utils";
 
@@ -35,7 +36,7 @@ export function Input({ error, className, id: idProp, type, ...props }: InputPro
             onClick={() => setRevealed((prev) => !prev)}
             className="absolute top-1/2 right-1 flex size-8 -translate-y-1/2 items-center justify-center text-muted-foreground hover:text-foreground"
           >
-            {revealed ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+            {revealed ? <EyeSlash className="size-4" /> : <Eye className="size-4" />}
           </button>
         )}
       </div>

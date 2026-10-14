@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState, type ReactNode } from "react";
-import { X } from "lucide-react";
+import { X } from "@phosphor-icons/react/X";
 
 import { ToastContext, type ToastInput, type ToastStatus } from "@/components/toast/use-toast";
 import { cn } from "@/lib/utils";

@@ -16,6 +16,21 @@ import { Route as authLogoutRouteImport } from './routes/(auth)/logout'
 import { Route as GuestLoginRouteImport } from './routes/_guest/login'
 import { Route as GuestRegisterRouteImport } from './routes/_guest/register'
 import { Route as ClientIndexRouteImport } from './routes/client/index'
+import { Route as ClientAccountRouteImport } from './routes/client/account'
+import { Route as ClientAffiliatesRouteImport } from './routes/client/affiliates'
+import { Route as ClientAnnouncementsRouteImport } from './routes/client/announcements'
+import { Route as ClientCreditRouteImport } from './routes/client/credit'
+import { Route as ClientInvoicesRouteImport } from './routes/client/invoices'
+import { Route as ClientKnowledgeBaseRouteImport } from './routes/client/knowledge-base'
+import { Route as ClientNetworkStatusRouteImport } from './routes/client/network-status'
+import { Route as ClientPaymentMethodsRouteImport } from './routes/client/payment-methods'
+import { Route as ClientQuotesRouteImport } from './routes/client/quotes'
+import { Route as ClientSecurityRouteImport } from './routes/client/security'
+import { Route as ClientStoreRouteImport } from './routes/client/store'
+import { Route as ClientTicketsRouteImport } from './routes/client/tickets'
+import { Route as ClientTransactionsRouteImport } from './routes/client/transactions'
+import { Route as ClientServicesIndexRouteImport } from './routes/client/services/index'
+import { Route as ClientServicesServiceIdRouteImport } from './routes/client/services/$serviceId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -51,6 +66,81 @@ const ClientIndexRoute = ClientIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ClientRouteRoute,
 } as any)
+const ClientAccountRoute = ClientAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientAffiliatesRoute = ClientAffiliatesRouteImport.update({
+  id: '/affiliates',
+  path: '/affiliates',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientAnnouncementsRoute = ClientAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientCreditRoute = ClientCreditRouteImport.update({
+  id: '/credit',
+  path: '/credit',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientInvoicesRoute = ClientInvoicesRouteImport.update({
+  id: '/invoices',
+  path: '/invoices',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientKnowledgeBaseRoute = ClientKnowledgeBaseRouteImport.update({
+  id: '/knowledge-base',
+  path: '/knowledge-base',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientNetworkStatusRoute = ClientNetworkStatusRouteImport.update({
+  id: '/network-status',
+  path: '/network-status',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientPaymentMethodsRoute = ClientPaymentMethodsRouteImport.update({
+  id: '/payment-methods',
+  path: '/payment-methods',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientQuotesRoute = ClientQuotesRouteImport.update({
+  id: '/quotes',
+  path: '/quotes',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientSecurityRoute = ClientSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientStoreRoute = ClientStoreRouteImport.update({
+  id: '/store',
+  path: '/store',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientTicketsRoute = ClientTicketsRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientTransactionsRoute = ClientTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientServicesIndexRoute = ClientServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
+const ClientServicesServiceIdRoute = ClientServicesServiceIdRouteImport.update({
+  id: '/services/$serviceId',
+  path: '/services/$serviceId',
+  getParentRoute: () => ClientRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -58,14 +148,44 @@ export interface FileRoutesByFullPath {
   '/logout': typeof authLogoutRoute
   '/login': typeof GuestLoginRoute
   '/register': typeof GuestRegisterRoute
+  '/client/account': typeof ClientAccountRoute
+  '/client/affiliates': typeof ClientAffiliatesRoute
+  '/client/announcements': typeof ClientAnnouncementsRoute
+  '/client/credit': typeof ClientCreditRoute
+  '/client/invoices': typeof ClientInvoicesRoute
+  '/client/knowledge-base': typeof ClientKnowledgeBaseRoute
+  '/client/network-status': typeof ClientNetworkStatusRoute
+  '/client/payment-methods': typeof ClientPaymentMethodsRoute
+  '/client/quotes': typeof ClientQuotesRoute
+  '/client/security': typeof ClientSecurityRoute
+  '/client/store': typeof ClientStoreRoute
+  '/client/tickets': typeof ClientTicketsRoute
+  '/client/transactions': typeof ClientTransactionsRoute
   '/client/': typeof ClientIndexRoute
+  '/client/services/$serviceId': typeof ClientServicesServiceIdRoute
+  '/client/services/': typeof ClientServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/logout': typeof authLogoutRoute
   '/login': typeof GuestLoginRoute
   '/register': typeof GuestRegisterRoute
+  '/client/account': typeof ClientAccountRoute
+  '/client/affiliates': typeof ClientAffiliatesRoute
+  '/client/announcements': typeof ClientAnnouncementsRoute
+  '/client/credit': typeof ClientCreditRoute
+  '/client/invoices': typeof ClientInvoicesRoute
+  '/client/knowledge-base': typeof ClientKnowledgeBaseRoute
+  '/client/network-status': typeof ClientNetworkStatusRoute
+  '/client/payment-methods': typeof ClientPaymentMethodsRoute
+  '/client/quotes': typeof ClientQuotesRoute
+  '/client/security': typeof ClientSecurityRoute
+  '/client/store': typeof ClientStoreRoute
+  '/client/tickets': typeof ClientTicketsRoute
+  '/client/transactions': typeof ClientTransactionsRoute
   '/client': typeof ClientIndexRoute
+  '/client/services/$serviceId': typeof ClientServicesServiceIdRoute
+  '/client/services': typeof ClientServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -75,13 +195,69 @@ export interface FileRoutesById {
   '/(auth)/logout': typeof authLogoutRoute
   '/_guest/login': typeof GuestLoginRoute
   '/_guest/register': typeof GuestRegisterRoute
+  '/client/account': typeof ClientAccountRoute
+  '/client/affiliates': typeof ClientAffiliatesRoute
+  '/client/announcements': typeof ClientAnnouncementsRoute
+  '/client/credit': typeof ClientCreditRoute
+  '/client/invoices': typeof ClientInvoicesRoute
+  '/client/knowledge-base': typeof ClientKnowledgeBaseRoute
+  '/client/network-status': typeof ClientNetworkStatusRoute
+  '/client/payment-methods': typeof ClientPaymentMethodsRoute
+  '/client/quotes': typeof ClientQuotesRoute
+  '/client/security': typeof ClientSecurityRoute
+  '/client/store': typeof ClientStoreRoute
+  '/client/tickets': typeof ClientTicketsRoute
+  '/client/transactions': typeof ClientTransactionsRoute
   '/client/': typeof ClientIndexRoute
+  '/client/services/$serviceId': typeof ClientServicesServiceIdRoute
+  '/client/services/': typeof ClientServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/client' | '/logout' | '/login' | '/register' | '/client/'
+  fullPaths:
+    | '/'
+    | '/client'
+    | '/logout'
+    | '/login'
+    | '/register'
+    | '/client/account'
+    | '/client/affiliates'
+    | '/client/announcements'
+    | '/client/credit'
+    | '/client/invoices'
+    | '/client/knowledge-base'
+    | '/client/network-status'
+    | '/client/payment-methods'
+    | '/client/quotes'
+    | '/client/security'
+    | '/client/store'
+    | '/client/tickets'
+    | '/client/transactions'
+    | '/client/'
+    | '/client/services/$serviceId'
+    | '/client/services/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/logout' | '/login' | '/register' | '/client'
+  to:
+    | '/'
+    | '/logout'
+    | '/login'
+    | '/register'
+    | '/client/account'
+    | '/client/affiliates'
+    | '/client/announcements'
+    | '/client/credit'
+    | '/client/invoices'
+    | '/client/knowledge-base'
+    | '/client/network-status'
+    | '/client/payment-methods'
+    | '/client/quotes'
+    | '/client/security'
+    | '/client/store'
+    | '/client/tickets'
+    | '/client/transactions'
+    | '/client'
+    | '/client/services/$serviceId'
+    | '/client/services'
   id:
     | '__root__'
     | '/'
@@ -90,7 +266,22 @@ export interface FileRouteTypes {
     | '/(auth)/logout'
     | '/_guest/login'
     | '/_guest/register'
+    | '/client/account'
+    | '/client/affiliates'
+    | '/client/announcements'
+    | '/client/credit'
+    | '/client/invoices'
+    | '/client/knowledge-base'
+    | '/client/network-status'
+    | '/client/payment-methods'
+    | '/client/quotes'
+    | '/client/security'
+    | '/client/store'
+    | '/client/tickets'
+    | '/client/transactions'
     | '/client/'
+    | '/client/services/$serviceId'
+    | '/client/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -151,15 +342,150 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientIndexRouteImport
       parentRoute: typeof ClientRouteRoute
     }
+    '/client/account': {
+      id: '/client/account'
+      path: '/account'
+      fullPath: '/client/account'
+      preLoaderRoute: typeof ClientAccountRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/affiliates': {
+      id: '/client/affiliates'
+      path: '/affiliates'
+      fullPath: '/client/affiliates'
+      preLoaderRoute: typeof ClientAffiliatesRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/announcements': {
+      id: '/client/announcements'
+      path: '/announcements'
+      fullPath: '/client/announcements'
+      preLoaderRoute: typeof ClientAnnouncementsRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/credit': {
+      id: '/client/credit'
+      path: '/credit'
+      fullPath: '/client/credit'
+      preLoaderRoute: typeof ClientCreditRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/invoices': {
+      id: '/client/invoices'
+      path: '/invoices'
+      fullPath: '/client/invoices'
+      preLoaderRoute: typeof ClientInvoicesRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/knowledge-base': {
+      id: '/client/knowledge-base'
+      path: '/knowledge-base'
+      fullPath: '/client/knowledge-base'
+      preLoaderRoute: typeof ClientKnowledgeBaseRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/network-status': {
+      id: '/client/network-status'
+      path: '/network-status'
+      fullPath: '/client/network-status'
+      preLoaderRoute: typeof ClientNetworkStatusRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/payment-methods': {
+      id: '/client/payment-methods'
+      path: '/payment-methods'
+      fullPath: '/client/payment-methods'
+      preLoaderRoute: typeof ClientPaymentMethodsRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/quotes': {
+      id: '/client/quotes'
+      path: '/quotes'
+      fullPath: '/client/quotes'
+      preLoaderRoute: typeof ClientQuotesRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/security': {
+      id: '/client/security'
+      path: '/security'
+      fullPath: '/client/security'
+      preLoaderRoute: typeof ClientSecurityRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/store': {
+      id: '/client/store'
+      path: '/store'
+      fullPath: '/client/store'
+      preLoaderRoute: typeof ClientStoreRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/tickets': {
+      id: '/client/tickets'
+      path: '/tickets'
+      fullPath: '/client/tickets'
+      preLoaderRoute: typeof ClientTicketsRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/transactions': {
+      id: '/client/transactions'
+      path: '/transactions'
+      fullPath: '/client/transactions'
+      preLoaderRoute: typeof ClientTransactionsRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/services/': {
+      id: '/client/services/'
+      path: '/services'
+      fullPath: '/client/services/'
+      preLoaderRoute: typeof ClientServicesIndexRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
+    '/client/services/$serviceId': {
+      id: '/client/services/$serviceId'
+      path: '/services/$serviceId'
+      fullPath: '/client/services/$serviceId'
+      preLoaderRoute: typeof ClientServicesServiceIdRouteImport
+      parentRoute: typeof ClientRouteRoute
+    }
   }
 }
 
 interface ClientRouteRouteChildren {
+  ClientAccountRoute: typeof ClientAccountRoute
+  ClientAffiliatesRoute: typeof ClientAffiliatesRoute
+  ClientAnnouncementsRoute: typeof ClientAnnouncementsRoute
+  ClientCreditRoute: typeof ClientCreditRoute
+  ClientInvoicesRoute: typeof ClientInvoicesRoute
+  ClientKnowledgeBaseRoute: typeof ClientKnowledgeBaseRoute
+  ClientNetworkStatusRoute: typeof ClientNetworkStatusRoute
+  ClientPaymentMethodsRoute: typeof ClientPaymentMethodsRoute
+  ClientQuotesRoute: typeof ClientQuotesRoute
+  ClientSecurityRoute: typeof ClientSecurityRoute
+  ClientStoreRoute: typeof ClientStoreRoute
+  ClientTicketsRoute: typeof ClientTicketsRoute
+  ClientTransactionsRoute: typeof ClientTransactionsRoute
   ClientIndexRoute: typeof ClientIndexRoute
+  ClientServicesServiceIdRoute: typeof ClientServicesServiceIdRoute
+  ClientServicesIndexRoute: typeof ClientServicesIndexRoute
 }
 
 const ClientRouteRouteChildren: ClientRouteRouteChildren = {
+  ClientAccountRoute: ClientAccountRoute,
+  ClientAffiliatesRoute: ClientAffiliatesRoute,
+  ClientAnnouncementsRoute: ClientAnnouncementsRoute,
+  ClientCreditRoute: ClientCreditRoute,
+  ClientInvoicesRoute: ClientInvoicesRoute,
+  ClientKnowledgeBaseRoute: ClientKnowledgeBaseRoute,
+  ClientNetworkStatusRoute: ClientNetworkStatusRoute,
+  ClientPaymentMethodsRoute: ClientPaymentMethodsRoute,
+  ClientQuotesRoute: ClientQuotesRoute,
+  ClientSecurityRoute: ClientSecurityRoute,
+  ClientStoreRoute: ClientStoreRoute,
+  ClientTicketsRoute: ClientTicketsRoute,
+  ClientTransactionsRoute: ClientTransactionsRoute,
   ClientIndexRoute: ClientIndexRoute,
+  ClientServicesServiceIdRoute: ClientServicesServiceIdRoute,
+  ClientServicesIndexRoute: ClientServicesIndexRoute,
 }
 
 const ClientRouteRouteWithChildren = ClientRouteRoute._addFileChildren(
