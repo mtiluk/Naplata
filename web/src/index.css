@@ -1,8 +1,17 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
 
+@font-face {
+  font-family: "Satoshi Variable";
+  src: url("./assets/fonts/Satoshi-Variable.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Satoshi Variable", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: #18181a;
   --color-foreground: #fafafa;
