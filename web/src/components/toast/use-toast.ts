@@ -1,13 +1,17 @@
 import { createContext, useContext } from "react";
 
-import type { useAnimatedToastStack } from "@/components/motion/animated-toast-stack";
+export type ToastStatus = "info" | "success" | "error";
 
-type ToastStack = ReturnType<typeof useAnimatedToastStack>;
+export type ToastInput = {
+  title: string;
+  description?: string;
+  status?: ToastStatus;
+};
 
-export type ToastContextValue = Pick<
-  ToastStack,
-  "showToast" | "updateToast" | "dismissToast" | "clearToasts"
->;
+export type ToastContextValue = {
+  showToast: (toast: ToastInput) => void;
+  dismissToast: (id: number) => void;
+};
 
 export const ToastContext = createContext<ToastContextValue | null>(null);
 

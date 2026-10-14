@@ -5,14 +5,11 @@ import * as z from "zod";
 
 import { registerUser } from "@/api/auth/user";
 import { parseServerError } from "@/api/errors";
-import { AuthCard } from "@/components/auth/auth-card";
 import { AuthLayout } from "@/components/auth/auth-layout";
-import {
-  StatefulButton,
-  type ButtonState,
-} from "@/components/motion/button/stateful";
-import { Checkbox } from "@/components/motion/checkbox";
-import { Input } from "@/components/motion/input";
+import { useToast } from "@/components/toast/use-toast";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/_guest/register")({
   component: Register,
@@ -38,6 +35,7 @@ const registerSchema = z
 
 function Register() {
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -51,17 +49,10 @@ function Register() {
   const register = useMutation({
     mutationFn: registerUser,
     onSuccess: () => {
-      setTimeout(() => navigate({ to: "/login" }), 800);
+      showToast({ status: "success", title: "Account created", description: "You can now sign in." });
+      navigate({ to: "/login" });
     },
   });
-
-  const buttonState: ButtonState = register.isPending
-    ? "loading"
-    : register.isSuccess
-      ? "success"
-      : register.isError
-        ? "error"
-        : "idle";
 
   const { fieldErrors: serverFieldErrors, formError } = parseServerError(
     register.error,
@@ -98,104 +89,89 @@ function Register() {
 
   return (
     <AuthLayout
-      prompt={
+      title="Create account"
+      footer={
         <>
           Already have an account?{" "}
-          <Link to="/login" className="text-primary hover:underline">
+          <Link to="/login" className="text-accent underline underline-offset-2 hover:text-foreground">
             Sign in
           </Link>
         </>
       }
     >
-      <AuthCard title="Create your account" description="Sign up to start using Naplate!">
-        <form className="flex flex-col gap-2 p-5" onSubmit={handleSubmit}>
-          <div className="flex items-center gap-3">
-            <Input
-              label="Given Name"
-              className="flex-1"
-              type="text"
-              value={form.given_name}
-              onChange={(value) =>
-                setForm((prev) => ({ ...prev, given_name: value }))
-              }
-              error={errors.given_name}
-              reserveErrorLine
-            />
-
-            <Input
-              label="Family Name"
-              className="flex-1"
-              type="text"
-              value={form.family_name}
-              onChange={(value) =>
-                setForm((prev) => ({ ...prev, family_name: value }))
-              }
-              error={errors.family_name}
-              reserveErrorLine
-            />
-          </div>
-
+      <form className="space-y-3" onSubmit={handleSubmit}>
+        <div className="flex gap-3">
           <Input
-            label="Email"
-            type="email"
-            value={form.email}
-            onChange={(value) => setForm((prev) => ({ ...prev, email: value }))}
-            error={errors.email}
-            reserveErrorLine
+            className="flex-1"
+            type="text"
+            placeholder="Given name"
+            value={form.given_name}
+            onChange={(e) => setForm((prev) => ({ ...prev, given_name: e.target.value }))}
+            error={errors.given_name}
           />
 
           <Input
-            label="Password"
-            type="password"
-            value={form.password}
-            onChange={(value) =>
-              setForm((prev) => ({ ...prev, password: value }))
-            }
-            error={errors.password}
-            reserveErrorLine
+            className="flex-1"
+            type="text"
+            placeholder="Family name"
+            value={form.family_name}
+            onChange={(e) => setForm((prev) => ({ ...prev, family_name: e.target.value }))}
+            error={errors.family_name}
           />
+        </div>
 
-          <Input
-            label="Confirm Password"
-            type="password"
-            value={form.confirm_password}
-            onChange={(value) =>
-              setForm((prev) => ({ ...prev, confirm_password: value }))
-            }
-            error={errors.confirm_password}
-            reserveErrorLine
-          />
+        <Input
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+          error={errors.email}
+        />
 
-          <Checkbox
-            className="mb-5.5 flex"
-            label={
-              <>
-                I agree to the{" "}
-                <a
-                  href="/terms"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-primary hover:underline"
-                >
-                  terms and conditions
-                </a>
-              </>
-            }
-            checked={form.terms}
-            error={!!errors.terms}
-            onCheckedChange={(checked) => {
-              setForm((prev) => ({ ...prev, terms: checked }));
-              if (checked) setClientErrors((prev) => ({ ...prev, terms: "" }));
-            }}
-          />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
+          error={errors.password}
+        />
 
-          {formError && <p className="text-xs text-destructive">{formError}</p>}
+        <Input
+          type="password"
+          placeholder="Confirm password"
+          value={form.confirm_password}
+          onChange={(e) => setForm((prev) => ({ ...prev, confirm_password: e.target.value }))}
+          error={errors.confirm_password}
+        />
 
-          <StatefulButton type="submit" className="w-full" successText="Registered!" errorText="Try again" state={buttonState}>
-            Register
-          </StatefulButton>
-        </form>
-      </AuthCard>
+        <Checkbox
+          label={
+            <>
+              I agree to the{" "}
+              <a
+                href="/terms"
+                target="_blank"
+                rel="noreferrer"
+                className="text-accent underline underline-offset-2 hover:text-foreground"
+              >
+                terms and conditions
+              </a>
+            </>
+          }
+          checked={form.terms}
+          error={!!errors.terms}
+          onCheckedChange={(checked) => {
+            setForm((prev) => ({ ...prev, terms: checked }));
+            if (checked) setClientErrors((prev) => ({ ...prev, terms: "" }));
+          }}
+        />
+
+        {formError && <p className="text-xs text-destructive">{formError}</p>}
+
+        <Button type="submit" className="w-full" disabled={register.isPending || register.isSuccess}>
+          {register.isPending ? "Creating account..." : "Create account"}
+        </Button>
+      </form>
     </AuthLayout>
   );
 }

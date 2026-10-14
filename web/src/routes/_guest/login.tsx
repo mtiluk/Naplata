@@ -6,10 +6,9 @@ import * as z from "zod";
 import { meQuery } from "@/api/auth/me";
 import { loginUser } from "@/api/auth/user";
 import { parseServerError } from "@/api/errors";
-import { AuthCard } from "@/components/auth/auth-card";
 import { AuthLayout } from "@/components/auth/auth-layout";
-import { StatefulButton, type ButtonState } from "@/components/motion/button/stateful";
-import { Input } from "@/components/motion/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/_guest/login")({
   validateSearch: (search: Record<string, unknown>): { redirect?: string } => ({
@@ -47,14 +46,6 @@ function Login() {
     },
   });
 
-  const buttonState: ButtonState = login.isPending
-    ? "loading"
-    : login.isSuccess
-      ? "success"
-      : login.isError
-        ? "error"
-        : "idle";
-
   const { fieldErrors: serverFieldErrors, formError } = parseServerError(
     login.error,
     {
@@ -90,44 +81,45 @@ function Login() {
 
   return (
     <AuthLayout
-      prompt={
+      title="Sign in"
+      footer={
         <>
-          Don't have an account?{" "}
-          <Link to="/register" className="text-primary hover:underline">
-            Sign up
+          No account?{" "}
+          <Link to="/register" className="text-accent underline underline-offset-2 hover:text-foreground">
+            Create one
           </Link>
         </>
       }
     >
-      <AuthCard title="Sign in to Naplata" description="Sign in to start using Naplata!">
-        <form className="flex flex-col gap-2 p-5" onSubmit={handleSubmit}>
-          <Input
-            label="Email"
-            type="email"
-            value={form.email}
-            onChange={(value) => setForm((prev) => ({ ...prev, email: value }))}
-            error={errors.email}
-            reserveErrorLine
-          />
+      <form className="space-y-3" onSubmit={handleSubmit}>
+        <Input
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+          error={errors.email}
+        />
 
-          <Input
-            label="Password"
-            type="password"
-            value={form.password}
-            onChange={(value) =>
-              setForm((prev) => ({ ...prev, password: value }))
-            }
-            error={errors.password}
-            reserveErrorLine
-          />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
+          error={errors.password}
+        />
 
-          {formError && <p className="text-xs text-destructive">{formError}</p>}
+        {formError && <p className="text-xs text-destructive">{formError}</p>}
 
-          <StatefulButton type="submit" className="w-full" successText="Signing in..." errorText="Try again" state={buttonState}>
-            Sign In
-          </StatefulButton>
-        </form>
-      </AuthCard>
+        <Button type="submit" className="w-full" disabled={login.isPending || login.isSuccess}>
+          {login.isPending ? "Signing in..." : "Sign in"}
+        </Button>
+
+        <div className="flex justify-center">
+          <a href="/forgot-password" className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground">
+            Forgot password?
+          </a>
+        </div>
+      </form>
     </AuthLayout>
   );
 }
