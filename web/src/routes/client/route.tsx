@@ -1,6 +1,25 @@
-import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
+import { Link, Outlet, createFileRoute, redirect, useRouterState } from "@tanstack/react-router";
+import { ArrowsLeftRight } from "@phosphor-icons/react/ArrowsLeftRight";
+import { BookOpen } from "@phosphor-icons/react/BookOpen";
+import { CreditCard } from "@phosphor-icons/react/CreditCard";
+import { FileText } from "@phosphor-icons/react/FileText";
+import { Handshake } from "@phosphor-icons/react/Handshake";
+import { HardDrives } from "@phosphor-icons/react/HardDrives";
+import { Lifebuoy } from "@phosphor-icons/react/Lifebuoy";
+import { Megaphone } from "@phosphor-icons/react/Megaphone";
+import { Plus } from "@phosphor-icons/react/Plus";
+import { Pulse } from "@phosphor-icons/react/Pulse";
+import { Receipt } from "@phosphor-icons/react/Receipt";
+import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
+import { ShoppingCart } from "@phosphor-icons/react/ShoppingCart";
+import { SignOut } from "@phosphor-icons/react/SignOut";
+import { SquaresFour } from "@phosphor-icons/react/SquaresFour";
+import { UserCircle } from "@phosphor-icons/react/UserCircle";
+import { Wallet } from "@phosphor-icons/react/Wallet";
 
 import { meQuery } from "@/api/auth/me";
+import { TEMP_SERVICES, type ServiceStatus } from "@/api/services/services";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/client")({
   beforeLoad: async ({ context, location }) => {
@@ -10,5 +29,145 @@ export const Route = createFileRoute("/client")({
     }
     return { user };
   },
-  component: () => <Outlet />,
+  component: ClientLayout,
 });
+
+const NAV_GROUPS = [
+  [
+    { label: "Overview", to: "/client", icon: SquaresFour },
+    { label: "Services", to: "/client/services", icon: HardDrives },
+    { label: "Invoices", to: "/client/invoices", icon: Receipt },
+    { label: "Store", to: "/client/store", icon: ShoppingCart },
+    { label: "Support tickets", to: "/client/tickets", icon: Lifebuoy },
+  ],
+  [
+    { label: "Quotes", to: "/client/quotes", icon: FileText },
+    { label: "Transactions", to: "/client/transactions", icon: ArrowsLeftRight },
+    { label: "Add funds", to: "/client/credit", icon: Wallet },
+    { label: "Payment methods", to: "/client/payment-methods", icon: CreditCard },
+  ],
+  [
+    { label: "Announcements", to: "/client/announcements", icon: Megaphone },
+    { label: "Knowledge base", to: "/client/knowledge-base", icon: BookOpen },
+    { label: "Network status", to: "/client/network-status", icon: Pulse },
+    { label: "Affiliates", to: "/client/affiliates", icon: Handshake },
+  ],
+  [
+    { label: "Security", to: "/client/security", icon: ShieldCheck },
+    { label: "Account", to: "/client/account", icon: UserCircle },
+  ],
+] as const;
+
+const STATUS_CLASS: Record<ServiceStatus, string> = {
+  active: "bg-success",
+  pending: "bg-muted-foreground",
+  suspended: "bg-destructive",
+};
+
+function ClientLayout() {
+  const { user } = Route.useRouteContext();
+  const name = [user.given_name, user.family_name].filter(Boolean).join(" ");
+  const initials = (user.given_name.charAt(0) + user.family_name.charAt(0)).toUpperCase();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const inServices = pathname === "/client/services" || pathname.startsWith("/client/services/");
+
+  return (
+    <div className="flex h-screen flex-col">
+      <header className="flex h-12 shrink-0 items-center justify-between border-b border-border px-4">
+        <Link to="/client" className="text-sm font-semibold tracking-tight">
+          Naplata
+        </Link>
+
+        <div className="flex items-center gap-3">
+          <Link to="/client/account" aria-label="Account settings" className="group flex items-center gap-3">
+            <div className="hidden text-right leading-tight sm:block">
+              <p className="text-[13px] font-medium">{name}</p>
+              <p className="text-[11px] text-muted-foreground transition-colors group-hover:text-foreground">{user.email}</p>
+            </div>
+            <span className="grid size-8 place-items-center border border-border bg-muted text-xs font-medium transition-colors group-hover:border-ring">
+              {initials}
+            </span>
+          </Link>
+          <Link
+            to="/logout"
+            aria-label="Sign out"
+            title="Sign out"
+            className="grid size-8 place-items-center text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <SignOut className="size-4" />
+          </Link>
+        </div>
+      </header>
+
+      <div className="flex min-h-0 flex-1">
+        <nav aria-label="Dashboard" className="flex w-12 shrink-0 flex-col gap-2 border-r border-border py-2">
+          {NAV_GROUPS.map((group, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center gap-1 border-border not-first:border-t not-first:pt-2 last:mt-auto"
+            >
+              {group.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  activeOptions={{ exact: item.to === "/client" }}
+                  aria-label={item.label}
+                  className="group relative grid size-8 place-items-center border border-transparent text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[status=active]:border-border data-[status=active]:bg-muted data-[status=active]:text-foreground"
+                >
+                  <item.icon className="size-4" />
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute top-1/2 left-full z-50 ml-2 -translate-y-1/2 bg-foreground px-2 py-1 text-xs font-medium whitespace-nowrap text-background opacity-0 shadow-md transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                  >
+                    {item.label}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          ))}
+        </nav>
+
+        {inServices && (
+          <nav aria-label="Services" className="hidden w-60 shrink-0 flex-col border-r border-border md:flex">
+            <div className="flex h-10 shrink-0 items-center gap-2 border-b border-border pr-1.5 pl-3">
+              <p className="text-[13px] font-medium">Services</p>
+              <span className="bg-muted px-1.5 text-[11px] text-muted-foreground tabular-nums">{TEMP_SERVICES.length}</span>
+              <Link
+                to="/client/store"
+                aria-label="Order a service"
+                title="Order a service"
+                className="ml-auto grid size-7 place-items-center text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <Plus className="size-4" />
+              </Link>
+            </div>
+            <div className="flex flex-col overflow-y-auto">
+              {TEMP_SERVICES.map((service) => (
+                <Link
+                  key={service.id}
+                  to="/client/services/$serviceId"
+                  params={{ serviceId: service.id }}
+                  className="flex items-start gap-2 border-b border-border px-3 py-2.5 transition-colors hover:bg-muted/50 data-[status=active]:bg-muted"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[13px] font-medium">{service.name}</p>
+                    <p className="truncate text-[11px] text-muted-foreground">{service.detail}</p>
+                  </div>
+                  <span
+                    role="img"
+                    aria-label={service.status}
+                    className={cn("mt-1.5 size-1.5 shrink-0 rounded-full", STATUS_CLASS[service.status])}
+                  />
+                </Link>
+              ))}
+            </div>
+          </nav>
+        )}
+
+        <main className="min-w-0 flex-1 overflow-auto p-6">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+}

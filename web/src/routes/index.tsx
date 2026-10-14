@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowRight } from "@phosphor-icons/react/ArrowRight";
+import { List } from "@phosphor-icons/react/List";
+import { X } from "@phosphor-icons/react/X";
 
 import { meQuery } from "@/api/auth/me";
 
@@ -58,7 +60,7 @@ function Index() {
               onClick={() => setMenuOpen((prev) => !prev)}
               className="-mr-2 flex size-10 items-center justify-center text-muted-foreground transition-colors hover:text-foreground sm:hidden"
             >
-              {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+              {menuOpen ? <X className="size-5" /> : <List className="size-5" />}
             </button>
           </div>
         </div>
