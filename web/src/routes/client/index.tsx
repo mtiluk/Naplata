@@ -6,5 +6,5 @@ export const Route = createFileRoute('/client/')({
 
 function RouteComponent() {
   const { user } = Route.useRouteContext()
-  return <div>{user.email}</div>
+  return <main className="px-6 py-8">{user.email}</main>
 }
