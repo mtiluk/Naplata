@@ -11,10 +11,18 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as GuestRouteImport } from './routes/_guest'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as ClientRouteRouteImport } from './routes/client/route'
 import { Route as authLogoutRouteImport } from './routes/(auth)/logout'
 import { Route as GuestLoginRouteImport } from './routes/_guest/login'
 import { Route as GuestRegisterRouteImport } from './routes/_guest/register'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminClientsRouteImport } from './routes/admin/clients'
+import { Route as AdminInvoicesRouteImport } from './routes/admin/invoices'
+import { Route as AdminProductsRouteImport } from './routes/admin/products'
+import { Route as AdminRefundsRouteImport } from './routes/admin/refunds'
+import { Route as AdminServicesRouteImport } from './routes/admin/services'
+import { Route as AdminSettingsRouteImport } from './routes/admin/settings'
 import { Route as ClientIndexRouteImport } from './routes/client/index'
 import { Route as ClientAccountRouteImport } from './routes/client/account'
 import { Route as ClientAffiliatesRouteImport } from './routes/client/affiliates'
@@ -41,6 +49,11 @@ const GuestRoute = GuestRouteImport.update({
   id: '/_guest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ClientRouteRoute = ClientRouteRouteImport.update({
   id: '/client',
   path: '/client',
@@ -60,6 +73,41 @@ const GuestRegisterRoute = GuestRegisterRouteImport.update({
   id: '/register',
   path: '/register',
   getParentRoute: () => GuestRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminClientsRoute = AdminClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminInvoicesRoute = AdminInvoicesRouteImport.update({
+  id: '/invoices',
+  path: '/invoices',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminRefundsRoute = AdminRefundsRouteImport.update({
+  id: '/refunds',
+  path: '/refunds',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminServicesRoute = AdminServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRouteRoute,
 } as any)
 const ClientIndexRoute = ClientIndexRouteImport.update({
   id: '/',
@@ -144,10 +192,17 @@ const ClientServicesServiceIdRoute = ClientServicesServiceIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/client': typeof ClientRouteRouteWithChildren
   '/logout': typeof authLogoutRoute
   '/login': typeof GuestLoginRoute
   '/register': typeof GuestRegisterRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/invoices': typeof AdminInvoicesRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/refunds': typeof AdminRefundsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/client/account': typeof ClientAccountRoute
   '/client/affiliates': typeof ClientAffiliatesRoute
   '/client/announcements': typeof ClientAnnouncementsRoute
@@ -161,6 +216,7 @@ export interface FileRoutesByFullPath {
   '/client/store': typeof ClientStoreRoute
   '/client/tickets': typeof ClientTicketsRoute
   '/client/transactions': typeof ClientTransactionsRoute
+  '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
   '/client/services/$serviceId': typeof ClientServicesServiceIdRoute
   '/client/services/': typeof ClientServicesIndexRoute
@@ -170,6 +226,12 @@ export interface FileRoutesByTo {
   '/logout': typeof authLogoutRoute
   '/login': typeof GuestLoginRoute
   '/register': typeof GuestRegisterRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/invoices': typeof AdminInvoicesRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/refunds': typeof AdminRefundsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/client/account': typeof ClientAccountRoute
   '/client/affiliates': typeof ClientAffiliatesRoute
   '/client/announcements': typeof ClientAnnouncementsRoute
@@ -183,6 +245,7 @@ export interface FileRoutesByTo {
   '/client/store': typeof ClientStoreRoute
   '/client/tickets': typeof ClientTicketsRoute
   '/client/transactions': typeof ClientTransactionsRoute
+  '/admin': typeof AdminIndexRoute
   '/client': typeof ClientIndexRoute
   '/client/services/$serviceId': typeof ClientServicesServiceIdRoute
   '/client/services': typeof ClientServicesIndexRoute
@@ -190,11 +253,18 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/client': typeof ClientRouteRouteWithChildren
   '/_guest': typeof GuestRouteWithChildren
   '/(auth)/logout': typeof authLogoutRoute
   '/_guest/login': typeof GuestLoginRoute
   '/_guest/register': typeof GuestRegisterRoute
+  '/admin/clients': typeof AdminClientsRoute
+  '/admin/invoices': typeof AdminInvoicesRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/refunds': typeof AdminRefundsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/client/account': typeof ClientAccountRoute
   '/client/affiliates': typeof ClientAffiliatesRoute
   '/client/announcements': typeof ClientAnnouncementsRoute
@@ -208,6 +278,7 @@ export interface FileRoutesById {
   '/client/store': typeof ClientStoreRoute
   '/client/tickets': typeof ClientTicketsRoute
   '/client/transactions': typeof ClientTransactionsRoute
+  '/admin/': typeof AdminIndexRoute
   '/client/': typeof ClientIndexRoute
   '/client/services/$serviceId': typeof ClientServicesServiceIdRoute
   '/client/services/': typeof ClientServicesIndexRoute
@@ -216,10 +287,17 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/client'
     | '/logout'
     | '/login'
     | '/register'
+    | '/admin/clients'
+    | '/admin/invoices'
+    | '/admin/products'
+    | '/admin/refunds'
+    | '/admin/services'
+    | '/admin/settings'
     | '/client/account'
     | '/client/affiliates'
     | '/client/announcements'
@@ -233,6 +311,7 @@ export interface FileRouteTypes {
     | '/client/store'
     | '/client/tickets'
     | '/client/transactions'
+    | '/admin/'
     | '/client/'
     | '/client/services/$serviceId'
     | '/client/services/'
@@ -242,6 +321,12 @@ export interface FileRouteTypes {
     | '/logout'
     | '/login'
     | '/register'
+    | '/admin/clients'
+    | '/admin/invoices'
+    | '/admin/products'
+    | '/admin/refunds'
+    | '/admin/services'
+    | '/admin/settings'
     | '/client/account'
     | '/client/affiliates'
     | '/client/announcements'
@@ -255,17 +340,25 @@ export interface FileRouteTypes {
     | '/client/store'
     | '/client/tickets'
     | '/client/transactions'
+    | '/admin'
     | '/client'
     | '/client/services/$serviceId'
     | '/client/services'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/client'
     | '/_guest'
     | '/(auth)/logout'
     | '/_guest/login'
     | '/_guest/register'
+    | '/admin/clients'
+    | '/admin/invoices'
+    | '/admin/products'
+    | '/admin/refunds'
+    | '/admin/services'
+    | '/admin/settings'
     | '/client/account'
     | '/client/affiliates'
     | '/client/announcements'
@@ -279,6 +372,7 @@ export interface FileRouteTypes {
     | '/client/store'
     | '/client/tickets'
     | '/client/transactions'
+    | '/admin/'
     | '/client/'
     | '/client/services/$serviceId'
     | '/client/services/'
@@ -286,6 +380,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
   ClientRouteRoute: typeof ClientRouteRouteWithChildren
   GuestRoute: typeof GuestRouteWithChildren
   authLogoutRoute: typeof authLogoutRoute
@@ -305,6 +400,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof GuestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/client': {
@@ -334,6 +436,55 @@ declare module '@tanstack/react-router' {
       fullPath: '/register'
       preLoaderRoute: typeof GuestRegisterRouteImport
       parentRoute: typeof GuestRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/clients': {
+      id: '/admin/clients'
+      path: '/clients'
+      fullPath: '/admin/clients'
+      preLoaderRoute: typeof AdminClientsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/invoices': {
+      id: '/admin/invoices'
+      path: '/invoices'
+      fullPath: '/admin/invoices'
+      preLoaderRoute: typeof AdminInvoicesRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/refunds': {
+      id: '/admin/refunds'
+      path: '/refunds'
+      fullPath: '/admin/refunds'
+      preLoaderRoute: typeof AdminRefundsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/services': {
+      id: '/admin/services'
+      path: '/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AdminServicesRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
     '/client/': {
       id: '/client/'
@@ -450,6 +601,30 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteRouteChildren {
+  AdminClientsRoute: typeof AdminClientsRoute
+  AdminInvoicesRoute: typeof AdminInvoicesRoute
+  AdminProductsRoute: typeof AdminProductsRoute
+  AdminRefundsRoute: typeof AdminRefundsRoute
+  AdminServicesRoute: typeof AdminServicesRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminClientsRoute: AdminClientsRoute,
+  AdminInvoicesRoute: AdminInvoicesRoute,
+  AdminProductsRoute: AdminProductsRoute,
+  AdminRefundsRoute: AdminRefundsRoute,
+  AdminServicesRoute: AdminServicesRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
 interface ClientRouteRouteChildren {
   ClientAccountRoute: typeof ClientAccountRoute
   ClientAffiliatesRoute: typeof ClientAffiliatesRoute
@@ -506,6 +681,7 @@ const GuestRouteWithChildren = GuestRoute._addFileChildren(GuestRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
   ClientRouteRoute: ClientRouteRouteWithChildren,
   GuestRoute: GuestRouteWithChildren,
   authLogoutRoute: authLogoutRoute,
