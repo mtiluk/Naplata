@@ -18,11 +18,12 @@ type registerRequest struct {
 }
 
 type userResponse struct {
-	ID         string    `json:"id"`
-	Email      string    `json:"email"`
-	GivenName  string    `json:"given_name"`
-	FamilyName string    `json:"family_name"`
-	CreatedAt  time.Time `json:"created_at"`
+	ID          string    `json:"id"`
+	Email       string    `json:"email"`
+	GivenName   string    `json:"given_name"`
+	FamilyName  string    `json:"family_name"`
+	CreatedAt   time.Time `json:"created_at"`
+	Permissions []string  `json:"permissions"`
 }
 
 func (h *Handler) RegisterEndpoint(w http.ResponseWriter, r *http.Request) {
@@ -162,11 +163,19 @@ func (h *Handler) MeEndpoint(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	permissions, err := h.store.GetUserPermissions(r.Context(), user.ID)
+	if err != nil {
+		slog.Error("get user permissions", "err", err)
+		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "internal error"})
+		return
+	}
+
 	writeJSON(w, http.StatusOK, userResponse{
-		ID:         user.ID,
-		Email:      user.Email,
-		GivenName:  user.GivenName,
-		FamilyName: user.FamilyName,
-		CreatedAt:  user.CreatedAt,
+		ID:          user.ID,
+		Email:       user.Email,
+		GivenName:   user.GivenName,
+		FamilyName:  user.FamilyName,
+		CreatedAt:   user.CreatedAt,
+		Permissions: permissions,
 	})
 }

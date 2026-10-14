@@ -8,6 +8,7 @@ import (
 
 	"github.com/mtiluk/naplata/internal/config"
 	"github.com/mtiluk/naplata/internal/database"
+	"github.com/mtiluk/naplata/internal/permissions"
 	"github.com/mtiluk/naplata/internal/server"
 	"github.com/mtiluk/naplata/migrations"
 	"github.com/mtiluk/naplata/web"
@@ -35,9 +36,17 @@ func main() {
 
 	slog.Info("migrations applied")
 
+	store := database.NewStore(db)
+
+	if err := store.SeedPermissions(context.Background(), permissions.All); err != nil {
+		log.Fatal(err)
+	}
+
+	slog.Info("permissions seeded", "count", len(permissions.All))
+
 	sessionManager := server.NewSessionManager(cfg, db)
 
-	h := server.NewHandler(database.NewStore(db), sessionManager)
+	h := server.NewHandler(store, sessionManager)
 
 	mux := http.NewServeMux()
 

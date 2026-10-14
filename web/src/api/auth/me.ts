@@ -1,11 +1,14 @@
 import { queryOptions } from "@tanstack/react-query";
 
+import type { Permission } from "@/api/auth/permissions";
+
 export type User = {
   id: string;
   email: string;
   given_name: string;
   family_name: string;
   created_at: string;
+  permissions: Permission[];
 };
 
 export const meQuery = queryOptions({
