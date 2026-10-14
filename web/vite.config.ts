@@ -8,5 +8,4 @@ export default defineConfig({
   plugins: [tanstackRouter({ target: "react", autoCodeSplitting: true }), react(), tailwindcss()],
   resolve: { alias: { "@": path.resolve(import.meta.dirname, "src") } },
   server: { proxy: { "/api": "http://localhost:8080" } },
-  optimizeDeps: { exclude: ["@phosphor-icons/react"] },
 });

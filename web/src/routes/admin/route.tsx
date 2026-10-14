@@ -1,16 +1,8 @@
 import { Link, Outlet, createFileRoute, redirect } from "@tanstack/react-router";
-import { ArrowUUpLeft } from "@phosphor-icons/react/ArrowUUpLeft";
-import { GearSix } from "@phosphor-icons/react/GearSix";
-import { HardDrives } from "@phosphor-icons/react/HardDrives";
-import { Package } from "@phosphor-icons/react/Package";
-import { Receipt } from "@phosphor-icons/react/Receipt";
-import { SignOut } from "@phosphor-icons/react/SignOut";
-import { SquaresFour } from "@phosphor-icons/react/SquaresFour";
-import { User } from "@phosphor-icons/react/User";
-import { UsersThree } from "@phosphor-icons/react/UsersThree";
 
 import { meQuery } from "@/api/auth/me";
 import { Permission } from "@/api/auth/permissions";
+import { HugeiconsIcon, DashboardSquare01Icon, Invoice01Icon, Logout03Icon, PackageIcon, ReturnRequestIcon, ServerStack01Icon, Settings01Icon, UserGroupIcon, UserIcon } from "@/components/icons";
 
 export const Route = createFileRoute("/admin")({
   beforeLoad: async ({ context, location }) => {
@@ -28,15 +20,15 @@ export const Route = createFileRoute("/admin")({
 
 const NAV_GROUPS = [
   [
-    { label: "Overview", to: "/admin", icon: SquaresFour },
-    { label: "Clients", to: "/admin/clients", icon: UsersThree, permission: Permission.ClientsView },
-    { label: "Products", to: "/admin/products", icon: Package, permission: Permission.ProductsManage },
-    { label: "Services", to: "/admin/services", icon: HardDrives, permission: Permission.ServicesManage },
-    { label: "Invoices", to: "/admin/invoices", icon: Receipt, permission: Permission.InvoicesManage },
-    { label: "Refunds", to: "/admin/refunds", icon: ArrowUUpLeft, permission: Permission.PaymentsRefund },
-    { label: "Settings", to: "/admin/settings", icon: GearSix, permission: Permission.SettingsManage },
+    { label: "Overview", to: "/admin", icon: DashboardSquare01Icon },
+    { label: "Clients", to: "/admin/clients", icon: UserGroupIcon, permission: Permission.ClientsView },
+    { label: "Products", to: "/admin/products", icon: PackageIcon, permission: Permission.ProductsManage },
+    { label: "Services", to: "/admin/services", icon: ServerStack01Icon, permission: Permission.ServicesManage },
+    { label: "Invoices", to: "/admin/invoices", icon: Invoice01Icon, permission: Permission.InvoicesManage },
+    { label: "Refunds", to: "/admin/refunds", icon: ReturnRequestIcon, permission: Permission.PaymentsRefund },
+    { label: "Settings", to: "/admin/settings", icon: Settings01Icon, permission: Permission.SettingsManage },
   ],
-  [{ label: "Client area", to: "/client", icon: User }],
+  [{ label: "Client area", to: "/client", icon: UserIcon }],
 ] as const;
 
 function AdminLayout() {
@@ -68,7 +60,7 @@ function AdminLayout() {
             title="Sign out"
             className="grid size-8 place-items-center text-muted-foreground transition-colors hover:text-foreground"
           >
-            <SignOut className="size-4" />
+            <HugeiconsIcon icon={Logout03Icon} className="size-4" />
           </Link>
         </div>
       </header>
@@ -88,7 +80,7 @@ function AdminLayout() {
                   aria-label={item.label}
                   className="group relative grid size-8 place-items-center border border-transparent text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[status=active]:border-border data-[status=active]:bg-muted data-[status=active]:text-foreground"
                 >
-                  <item.icon className="size-4" />
+                  <HugeiconsIcon icon={item.icon} className="size-4" />
                   <span
                     aria-hidden="true"
                     className="pointer-events-none absolute top-1/2 left-full z-50 ml-2 -translate-y-1/2 bg-foreground px-2 py-1 text-xs font-medium whitespace-nowrap text-background opacity-0 shadow-md transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"

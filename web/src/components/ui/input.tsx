@@ -1,7 +1,6 @@
 import { useId, useState, type InputHTMLAttributes } from "react";
-import { Eye } from "@phosphor-icons/react/Eye";
-import { EyeSlash } from "@phosphor-icons/react/EyeSlash";
 
+import { HugeiconsIcon, ViewIcon, ViewOffSlashIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -36,7 +35,7 @@ export function Input({ error, className, id: idProp, type, ...props }: InputPro
             onClick={() => setRevealed((prev) => !prev)}
             className="absolute top-1/2 right-1 flex size-8 -translate-y-1/2 items-center justify-center text-muted-foreground hover:text-foreground"
           >
-            {revealed ? <EyeSlash className="size-4" /> : <Eye className="size-4" />}
+            {revealed ? <HugeiconsIcon icon={ViewOffSlashIcon} className="size-4" /> : <HugeiconsIcon icon={ViewIcon} className="size-4" />}
           </button>
         )}
       </div>

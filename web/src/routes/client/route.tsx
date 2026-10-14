@@ -1,26 +1,9 @@
 import { Link, Outlet, createFileRoute, redirect, useRouterState } from "@tanstack/react-router";
-import { ArrowsLeftRight } from "@phosphor-icons/react/ArrowsLeftRight";
-import { BookOpen } from "@phosphor-icons/react/BookOpen";
-import { CreditCard } from "@phosphor-icons/react/CreditCard";
-import { FileText } from "@phosphor-icons/react/FileText";
-import { Handshake } from "@phosphor-icons/react/Handshake";
-import { HardDrives } from "@phosphor-icons/react/HardDrives";
-import { Lifebuoy } from "@phosphor-icons/react/Lifebuoy";
-import { Megaphone } from "@phosphor-icons/react/Megaphone";
-import { Plus } from "@phosphor-icons/react/Plus";
-import { Pulse } from "@phosphor-icons/react/Pulse";
-import { Receipt } from "@phosphor-icons/react/Receipt";
-import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
-import { ShieldStar } from "@phosphor-icons/react/ShieldStar";
-import { ShoppingCart } from "@phosphor-icons/react/ShoppingCart";
-import { SignOut } from "@phosphor-icons/react/SignOut";
-import { SquaresFour } from "@phosphor-icons/react/SquaresFour";
-import { UserCircle } from "@phosphor-icons/react/UserCircle";
-import { Wallet } from "@phosphor-icons/react/Wallet";
 
 import { meQuery } from "@/api/auth/me";
 import { Permission } from "@/api/auth/permissions";
 import { TEMP_SERVICES, type ServiceStatus } from "@/api/services/services";
+import { HugeiconsIcon, Activity01Icon, Add01Icon, ArrowDataTransferHorizontalIcon, BookOpen01Icon, CreditCardIcon, CustomerSupportIcon, DashboardSquare01Icon, FileEditIcon, HandshakeIcon, Invoice01Icon, Logout03Icon, Megaphone01Icon, SecurityCheckIcon, ServerStack01Icon, ShieldUserIcon, ShoppingCart01Icon, UserCircleIcon, Wallet01Icon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/client")({
@@ -36,28 +19,28 @@ export const Route = createFileRoute("/client")({
 
 const NAV_GROUPS = [
   [
-    { label: "Overview", to: "/client", icon: SquaresFour },
-    { label: "Services", to: "/client/services", icon: HardDrives },
-    { label: "Invoices", to: "/client/invoices", icon: Receipt },
-    { label: "Store", to: "/client/store", icon: ShoppingCart },
-    { label: "Support tickets", to: "/client/tickets", icon: Lifebuoy },
+    { label: "Overview", to: "/client", icon: DashboardSquare01Icon },
+    { label: "Services", to: "/client/services", icon: ServerStack01Icon },
+    { label: "Invoices", to: "/client/invoices", icon: Invoice01Icon },
+    { label: "Store", to: "/client/store", icon: ShoppingCart01Icon },
+    { label: "Support tickets", to: "/client/tickets", icon: CustomerSupportIcon },
   ],
   [
-    { label: "Quotes", to: "/client/quotes", icon: FileText },
-    { label: "Transactions", to: "/client/transactions", icon: ArrowsLeftRight },
-    { label: "Add funds", to: "/client/credit", icon: Wallet },
-    { label: "Payment methods", to: "/client/payment-methods", icon: CreditCard },
+    { label: "Quotes", to: "/client/quotes", icon: FileEditIcon },
+    { label: "Transactions", to: "/client/transactions", icon: ArrowDataTransferHorizontalIcon },
+    { label: "Add funds", to: "/client/credit", icon: Wallet01Icon },
+    { label: "Payment methods", to: "/client/payment-methods", icon: CreditCardIcon },
   ],
   [
-    { label: "Announcements", to: "/client/announcements", icon: Megaphone },
-    { label: "Knowledge base", to: "/client/knowledge-base", icon: BookOpen },
-    { label: "Network status", to: "/client/network-status", icon: Pulse },
-    { label: "Affiliates", to: "/client/affiliates", icon: Handshake },
+    { label: "Announcements", to: "/client/announcements", icon: Megaphone01Icon },
+    { label: "Knowledge base", to: "/client/knowledge-base", icon: BookOpen01Icon },
+    { label: "Network status", to: "/client/network-status", icon: Activity01Icon },
+    { label: "Affiliates", to: "/client/affiliates", icon: HandshakeIcon },
   ],
   [
-    { label: "Admin area", to: "/admin", icon: ShieldStar, permission: Permission.AccessPanel },
-    { label: "Security", to: "/client/security", icon: ShieldCheck },
-    { label: "Account", to: "/client/account", icon: UserCircle },
+    { label: "Admin area", to: "/admin", icon: ShieldUserIcon, permission: Permission.AccessPanel },
+    { label: "Security", to: "/client/security", icon: SecurityCheckIcon },
+    { label: "Account", to: "/client/account", icon: UserCircleIcon },
   ],
 ] as const;
 
@@ -97,7 +80,7 @@ function ClientLayout() {
             title="Sign out"
             className="grid size-8 place-items-center text-muted-foreground transition-colors hover:text-foreground"
           >
-            <SignOut className="size-4" />
+            <HugeiconsIcon icon={Logout03Icon} className="size-4" />
           </Link>
         </div>
       </header>
@@ -117,7 +100,7 @@ function ClientLayout() {
                   aria-label={item.label}
                   className="group relative grid size-8 place-items-center border border-transparent text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[status=active]:border-border data-[status=active]:bg-muted data-[status=active]:text-foreground"
                 >
-                  <item.icon className="size-4" />
+                  <HugeiconsIcon icon={item.icon} className="size-4" />
                   <span
                     aria-hidden="true"
                     className="pointer-events-none absolute top-1/2 left-full z-50 ml-2 -translate-y-1/2 bg-foreground px-2 py-1 text-xs font-medium whitespace-nowrap text-background opacity-0 shadow-md transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
@@ -141,7 +124,7 @@ function ClientLayout() {
                 title="Order a service"
                 className="ml-auto grid size-7 place-items-center text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
-                <Plus className="size-4" />
+                <HugeiconsIcon icon={Add01Icon} className="size-4" />
               </Link>
             </div>
             <div className="flex flex-col overflow-y-auto">
