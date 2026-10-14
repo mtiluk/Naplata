@@ -11,6 +11,7 @@ import { Plus } from "@phosphor-icons/react/Plus";
 import { Pulse } from "@phosphor-icons/react/Pulse";
 import { Receipt } from "@phosphor-icons/react/Receipt";
 import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
+import { ShieldStar } from "@phosphor-icons/react/ShieldStar";
 import { ShoppingCart } from "@phosphor-icons/react/ShoppingCart";
 import { SignOut } from "@phosphor-icons/react/SignOut";
 import { SquaresFour } from "@phosphor-icons/react/SquaresFour";
@@ -18,6 +19,7 @@ import { UserCircle } from "@phosphor-icons/react/UserCircle";
 import { Wallet } from "@phosphor-icons/react/Wallet";
 
 import { meQuery } from "@/api/auth/me";
+import { Permission } from "@/api/auth/permissions";
 import { TEMP_SERVICES, type ServiceStatus } from "@/api/services/services";
 import { cn } from "@/lib/utils";
 
@@ -53,6 +55,7 @@ const NAV_GROUPS = [
     { label: "Affiliates", to: "/client/affiliates", icon: Handshake },
   ],
   [
+    { label: "Admin area", to: "/admin", icon: ShieldStar, permission: Permission.AccessPanel },
     { label: "Security", to: "/client/security", icon: ShieldCheck },
     { label: "Account", to: "/client/account", icon: UserCircle },
   ],
@@ -106,7 +109,7 @@ function ClientLayout() {
               key={index}
               className="flex flex-col items-center gap-1 border-border not-first:border-t not-first:pt-2 last:mt-auto"
             >
-              {group.map((item) => (
+              {group.filter((item) => !("permission" in item) || user.permissions.includes(item.permission)).map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
