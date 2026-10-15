@@ -5,9 +5,12 @@ export type Client = {
   email: string;
   given_name: string;
   family_name: string;
+  company: string | null;
+  status: ClientStatus;
   created_at: string;
 };
 
+export type ClientStatus = "active" | "suspended" | "closed";
 export type ClientSort = "name" | "created_at";
 export type SortOrder = "asc" | "desc";
 
