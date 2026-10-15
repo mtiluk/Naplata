@@ -18,7 +18,7 @@ export function Checkbox({ label, checked, error, onCheckedChange }: CheckboxPro
           checked={checked}
           aria-invalid={error || undefined}
           onChange={(e) => onCheckedChange(e.target.checked)}
-          className="peer size-4 cursor-pointer appearance-none border border-input bg-input/30 transition-colors outline-none checked:border-primary checked:bg-primary focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-0"
+          className="peer size-4 cursor-pointer appearance-none border border-input bg-input/30 transition-colors outline-none checked:border-primary checked:bg-primary focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive aria-invalid:ring-0"
         />
         <HugeiconsIcon icon={Tick02Icon} className="pointer-events-none absolute hidden size-3 text-primary-foreground peer-checked:block" strokeWidth={3} />
       </span>

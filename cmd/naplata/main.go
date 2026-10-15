@@ -62,6 +62,9 @@ func main() {
 	// Current user
 	mux.Handle("GET /api/v1/me", h.RequireAuth(http.HandlerFunc(h.MeEndpoint)))
 
+	// Admin
+	mux.Handle("GET /api/v1/admin/clients", h.RequirePermission(http.HandlerFunc(h.ListClientsEndpoint), permissions.ClientsView))
+
 	slog.Info("server listening", "addr", cfg.ListenAddr)
 	log.Fatal(http.ListenAndServe(cfg.ListenAddr, sessionManager.LoadAndSave(mux)))
 }

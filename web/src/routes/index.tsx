@@ -24,7 +24,7 @@ function Index() {
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/70">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <div className="flex items-center gap-8">
-            <Link to="/" className="text-sm font-semibold tracking-tight">
+            <Link to="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight">
               Naplata
             </Link>
 
@@ -78,11 +78,17 @@ function Index() {
         </nav>
       </header>
 
-      <main className="mx-auto max-w-6xl px-6 py-8">
+      <main className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
+        <p className="label mb-4 text-accent">Billing platform</p>
         <h1 className="text-[40px]/[1.08] font-semibold tracking-[-0.028em] text-balance sm:text-5xl/[1.06] lg:text-[64px]/[67px]">
           Naplata
         </h1>
+        <p className="mt-4 max-w-md text-base text-muted-foreground">
+          Billing and client management for hosting providers.
+        </p>
       </main>
+
+      <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 bottom-0 -z-10 h-48 bg-primary/60 dither-fade-b dither-scale-3" />
     </div>
   );
 }
