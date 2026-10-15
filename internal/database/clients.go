@@ -14,6 +14,8 @@ type Client struct {
 	Email      string    `db:"email" json:"email"`
 	GivenName  string    `db:"given_name" json:"given_name"`
 	FamilyName string    `db:"family_name" json:"family_name"`
+	Company    *string   `db:"company" json:"company"`
+	Status     string    `db:"status" json:"status"`
 	CreatedAt  time.Time `db:"created_at" json:"created_at"`
 }
 
@@ -40,7 +42,7 @@ func (s *Store) ListClients(ctx context.Context, p ListClientsParams) ([]Client,
 	}
 
 	rows, _ := s.pool.Query(ctx, `
-		SELECT u.id, u.email, u.given_name, u.family_name, u.created_at, count(*) OVER () AS total
+		SELECT u.id, u.email, u.given_name, u.family_name, u.company, u.status, u.created_at, count(*) OVER () AS total
 		FROM users u
 		WHERE strpos(lower(u.given_name || ' ' || u.family_name || ' ' || u.email), lower($1)) > 0
 		ORDER BY `+order+`, u.id

@@ -11,7 +11,7 @@ import {
 } from "@tanstack/react-table";
 
 import { Permission } from "@/api/auth/permissions";
-import { CLIENTS_PER_PAGE, clientsQuery, type Client, type ClientSort, type SortOrder } from "@/api/clients/clients";
+import { CLIENTS_PER_PAGE, clientsQuery, type Client, type ClientSort, type ClientStatus, type SortOrder } from "@/api/clients/clients";
 import { Add01Icon, ArrowLeft01Icon, ArrowRight01Icon, HugeiconsIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,6 +43,12 @@ export const Route = createFileRoute("/admin/clients")({
 
 const date = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
+const STATUS_CLASS: Record<ClientStatus, string> = {
+  active: "bg-emerald-300/10 text-emerald-200",
+  suspended: "bg-amber-300/10 text-amber-200",
+  closed: "bg-rose-300/10 text-rose-200",
+};
+
 const NO_CLIENTS: Client[] = [];
 
 const features = tableFeatures({ rowPaginationFeature, rowSortingFeature });
@@ -56,6 +62,18 @@ const columns = helper.columns([
         <p className="font-medium">{getValue()}</p>
         <p className="mt-0.5 text-[11px] text-muted-foreground">{row.original.email}</p>
       </>
+    ),
+  }),
+  helper.accessor("company", {
+    header: "Company",
+    enableSorting: false,
+    cell: ({ getValue }) => getValue() ?? <span className="text-muted-foreground">—</span>,
+  }),
+  helper.accessor("status", {
+    header: "Status",
+    enableSorting: false,
+    cell: ({ getValue }) => (
+      <span className={cn("inline-flex px-1.5 py-0.5 text-[11px] capitalize", STATUS_CLASS[getValue()])}>{getValue()}</span>
     ),
   }),
   helper.accessor("created_at", {
