@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
 
 @font-face {
   font-family: "Satoshi Variable";
@@ -12,6 +13,7 @@
 @theme {
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Satoshi Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
 
   --color-background: #18181a;
   --color-foreground: #fafafa;
@@ -29,6 +31,21 @@
   --color-selection: #a54a4b66;
 }
 
+@utility dither-fade-b {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='64' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v1h-1zM0 4h1v1h-1zM2 6h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM2 10h1v1h-1zM0 12h1v1h-1zM2 12h1v1h-1zM0 14h1v1h-1zM2 14h1v1h-1zM0 16h1v1h-1zM2 16h1v1h-1zM1 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM1 21h1v1h-1zM0 22h1v1h-1zM2 22h1v1h-1zM3 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM1 25h1v1h-1zM3 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 27h1v1h-1zM0 28h1v1h-1zM2 28h1v1h-1zM1 29h1v1h-1zM3 29h1v1h-1zM0 30h1v1h-1zM2 30h1v1h-1zM1 31h1v1h-1zM3 31h1v1h-1zM0 32h1v1h-1zM1 32h1v1h-1zM2 32h1v1h-1zM1 33h1v1h-1zM3 33h1v1h-1zM0 34h1v1h-1zM2 34h1v1h-1zM1 35h1v1h-1zM3 35h1v1h-1zM0 36h1v1h-1zM1 36h1v1h-1zM2 36h1v1h-1zM1 37h1v1h-1zM3 37h1v1h-1zM0 38h1v1h-1zM2 38h1v1h-1zM3 38h1v1h-1zM1 39h1v1h-1zM3 39h1v1h-1zM0 40h1v1h-1zM1 40h1v1h-1zM2 40h1v1h-1zM3 40h1v1h-1zM1 41h1v1h-1zM3 41h1v1h-1zM0 42h1v1h-1zM2 42h1v1h-1zM3 42h1v1h-1zM1 43h1v1h-1zM3 43h1v1h-1zM0 44h1v1h-1zM1 44h1v1h-1zM2 44h1v1h-1zM3 44h1v1h-1zM1 45h1v1h-1zM3 45h1v1h-1zM0 46h1v1h-1zM1 46h1v1h-1zM2 46h1v1h-1zM3 46h1v1h-1zM1 47h1v1h-1zM3 47h1v1h-1zM0 48h1v1h-1zM1 48h1v1h-1zM2 48h1v1h-1zM3 48h1v1h-1zM0 49h1v1h-1zM1 49h1v1h-1zM3 49h1v1h-1zM0 50h1v1h-1zM1 50h1v1h-1zM2 50h1v1h-1zM3 50h1v1h-1zM1 51h1v1h-1zM3 51h1v1h-1zM0 52h1v1h-1zM1 52h1v1h-1zM2 52h1v1h-1zM3 52h1v1h-1zM0 53h1v1h-1zM1 53h1v1h-1zM3 53h1v1h-1zM0 54h1v1h-1zM1 54h1v1h-1zM2 54h1v1h-1zM3 54h1v1h-1zM1 55h1v1h-1zM2 55h1v1h-1zM3 55h1v1h-1zM0 56h1v1h-1zM1 56h1v1h-1zM2 56h1v1h-1zM3 56h1v1h-1zM0 57h1v1h-1zM1 57h1v1h-1zM2 57h1v1h-1zM3 57h1v1h-1zM0 58h1v1h-1zM1 58h1v1h-1zM2 58h1v1h-1zM3 58h1v1h-1zM1 59h1v1h-1zM2 59h1v1h-1zM3 59h1v1h-1zM0 60h1v1h-1zM1 60h1v1h-1zM2 60h1v1h-1zM3 60h1v1h-1zM0 61h1v1h-1zM1 61h1v1h-1zM2 61h1v1h-1zM3 61h1v1h-1zM0 62h1v1h-1zM1 62h1v1h-1zM2 62h1v1h-1zM3 62h1v1h-1zM0 63h1v1h-1zM1 63h1v1h-1zM2 63h1v1h-1zM3 63h1v1h-1z'/%3E%3C/svg%3E");
+  mask-size: calc(4px * var(--dither-scale, 1)) calc(64px * var(--dither-scale, 1));
+  mask-repeat: repeat-x;
+  mask-position: bottom;
+}
+
+@utility dither-scale-* {
+  --dither-scale: --value(integer);
+}
+
+@utility label {
+  @apply font-mono text-[10px] font-medium tracking-[0.08em] uppercase;
+}
+
 @layer base {
   :root {
     color-scheme: dark;
@@ -36,6 +53,11 @@
 
   body {
     @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-muted) transparent;
   }
 
   ::selection {

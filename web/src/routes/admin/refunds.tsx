@@ -1,13 +1,11 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import { Permission } from '@/api/auth/permissions'
+import { requirePermission } from '@/lib/require-permission'
 
 export const Route = createFileRoute('/admin/refunds')({
-  beforeLoad: ({ context }) => {
-    if (!context.user.permissions.includes(Permission.PaymentsRefund)) {
-      throw redirect({ to: '/admin' })
-    }
-  },
+  staticData: { crumb: 'Refunds' },
+  beforeLoad: requirePermission(Permission.PaymentsRefund),
   component: RouteComponent,
 })
 
